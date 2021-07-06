@@ -1,0 +1,4 @@
+=========
+VERSIÓN 1
+=========
+Creamos la clase usuario, la clase evento y la clase compras
