@@ -1,5 +1,8 @@
 package com.ejemplos.spring.repository;
 
-public class EventRepository {
+import org.springframework.data.mongodb.repository.MongoRepository;
+
+import com.ejemplos.spring.model.Event;
+public interface EventRepository extends MongoRepository <Event, Long>{
 
 }

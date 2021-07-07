@@ -1,5 +1,6 @@
 package com.ejemplos.spring.repository;
 
-public class EventRepositoryImpl {
 
+public class EventRepositoryImpl {
+	
 }
