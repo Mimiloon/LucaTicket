@@ -1,11 +1,9 @@
 package com.ejemplos.spring.model;
 
-import java.time.LocalTime;
+import java.io.Serializable;
 import java.util.Date;
 
-
 import org.springframework.data.annotation.Id;
-import javax.validation.constraints.Max;
 import javax.validation.constraints.Min;
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
@@ -17,17 +15,19 @@ import com.fasterxml.jackson.annotation.JsonFormat;
 
 import lombok.Data;
 
-@Document(collection = "event")
+@Document(collection = "Events")
 @Data
-public class Event {
+public class Event implements Serializable {
 
+	private static final long serialVersionUID = 2330258799651251994L;
+	
 	@Id
-	private Long id;
+	private String id;
 	@NotEmpty
 	private String name;
-	@Size(min=2, max = 5)
+	@Size(min=1, max = 15)
 	private String shortDescription;
-	@Size(min=6, max = 30)
+	@Size(min=8, max = 30)
 	private String longDescription;
 	private String image;
 	@NotEmpty
@@ -35,14 +35,17 @@ public class Event {
 	private Date date;
 	@NotEmpty
 	@JsonFormat(pattern = "HH:mm:ss")
-	private LocalTime hour;
+	private String hour;
 	@NotNull
-	@Min(5)
-	@Max(200)
-	private int price;
+	@Min(0)
+	private int minimumprice;
+	@Min(0)
+	private int maximumprice;
 	private String access;
 	@NotEmpty
 	private Location location;
+	@NotEmpty
+	private String genre;
 	
 	
 }
