@@ -1,0 +1,22 @@
+# Configure this Discovery Server
+eureka:
+  instance:
+    hostname: localhost
+  client: 
+    # When the registry starts up it will complain, with a stacktrace, 
+    #     that there are no replica nodes for the registry to connect to
+    registerWithEureka: false
+    # By default, the registry will also attempt to register itself, so you’ll need to disable that, as well
+    fetchRegistry: false
+
+# HTTP (Tomcat) port
+server:
+  port: 1111   
+  
+  
+  # recuerda que tambien podrias usar un application.properties
+  # en ese caso hubiera sido
+  
+  #server.port=1111
+  #eureka.client.register-with-eureka=false
+  #eureka.client.fetch-registry=false
