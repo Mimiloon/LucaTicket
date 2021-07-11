@@ -12,7 +12,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
-import org.springframework.util.Assert;
 import org.springframework.validation.FieldError;
 import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -44,16 +43,11 @@ public class UserController {
 
 	@PreAuthorize("hasRole('ROLE_ADMIN') OR hasRole('ROLE_USER')")
 	@GetMapping("/{dni}")
-	public ResponseEntity<?> readUser(@PathVariable String dni) {
+	public User readUser(@PathVariable String dni) {
 		LOG.info("ENTRANDO A readUser(): dni:{}", dni);
 
-		User user = serv.findByDNI(dni).orElseThrow(UserNotFoundException::new);
+		User result = serv.findByDNI(dni).orElseThrow(UserNotFoundException::new);
 
-//		ResponseEntity<?> result = ResponseEntity.ok(user);
-		ResponseEntity<?> result = ResponseEntity
-	            .status(HttpStatus.FORBIDDEN)
-	            .body("Error Message");
-		
 		LOG.info("SALIENDO de readUser(): {}", result);
 		return result;
 	}
@@ -78,7 +72,7 @@ public class UserController {
 	@PreAuthorize("hasRole('ROLE_ADMIN') OR hasRole('ROLE_USER')")
 	@PutMapping("/{dni}")
 	public User updateUser(@PathVariable String dni, @Valid @RequestBody User user) {
-		LOG.info("ENTRANDO A updateUser(): dni:{}, user:{}",dni, user);
+		LOG.info("ENTRANDO A updateUser(): dni:{}, user:{}", dni, user);
 
 		User result = this.serv.updateUser(dni, user).orElseThrow(UserNotFoundException::new);
 
@@ -92,7 +86,7 @@ public class UserController {
 	public void deleteUser(@PathVariable String dni) {
 		serv.deleteUserByDNI(dni);
 	}
-	
+
 	@ResponseStatus(HttpStatus.BAD_REQUEST)
 	@ExceptionHandler(MethodArgumentNotValidException.class)
 	public Map<String, String> handleValidationExceptions(MethodArgumentNotValidException ex) {
@@ -104,6 +98,5 @@ public class UserController {
 		});
 		return errors;
 	}
-
 
 }
