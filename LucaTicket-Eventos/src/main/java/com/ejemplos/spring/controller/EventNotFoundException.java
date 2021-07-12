@@ -1,6 +1,9 @@
 package com.ejemplos.spring.controller;
 /**
- * @author Ana Díaz Muñoz*/
+* Class name: EventNotFoundException.java
+* Date: 10/07/2021
+* @version: 2.0
+* @author: Ana Díaz Muñoz*/
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.ResponseStatus;
 
@@ -13,10 +16,10 @@ public class EventNotFoundException extends RuntimeException {
 		super("Epic Fail: The requested event doesn´t exist");
 		action1();
 	}
-	public EventNotFoundException(Long id) {
+	public EventNotFoundException(String id) {
 		super("Epic Fail: The event with ID: "+id+" doesn´t exist");
 	}	
 	public void action1() {
 		
-	}
+	}	
 }

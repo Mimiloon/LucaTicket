@@ -1,6 +1,9 @@
 package com.ejemplos.spring.service;
 /**
- * @author Ana Díaz Muñoz*/
+* Class name: EventServiceImpl.java
+* Date: 10/07/2021
+* @version: 2.0
+* @author: Ana Díaz Muñoz*/
 import java.util.List;
 import java.util.Optional;
 
@@ -34,5 +37,20 @@ public class EventServiceImpl implements EventService {
 	@Override
 	public void deleteById(String id) {
 		repository.deleteById(id);
+	}
+	
+	@Override
+	public List<Event> findByGenre(String genre) {
+		return repository.findByGenre(genre);
+	}
+
+	@Override
+	public List<Event> findByCity(String city) {
+		return repository.findByLocationcity(city);
+	}
+	
+	@Override
+	public List<Event> findByName(String name) {
+		return repository.findByName(name);
 	}
 }
