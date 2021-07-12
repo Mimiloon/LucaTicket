@@ -136,7 +136,7 @@ public class LucaTicketTest01_AddingEvents {
 		List<Event> list = repo.findAll();
 		repo.save(e1);
 		List<Event> lst = repo.findAll();
-		assertThat(list.size()-1).isNotEqualTo(lst.size());
+		assertThat(list.size()).isNotEqualTo(lst.size());
 	}
 
 }
