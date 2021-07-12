@@ -55,6 +55,7 @@ public class Event implements Serializable {
 	@Min(0)
 	private int minimumprice;
 	@Field()
+	@NotNull
 	@Min(0)
 	private int maximumprice;
 	@Field()

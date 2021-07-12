@@ -8,7 +8,7 @@ import org.springframework.boot.test.context.SpringBootTest;
 import com.ejemplos.spring.controller.EventController;
 
 @SpringBootTest
-class Test02_Autowired {
+class Test03_TestingController {
 	
 	
 	@Autowired
