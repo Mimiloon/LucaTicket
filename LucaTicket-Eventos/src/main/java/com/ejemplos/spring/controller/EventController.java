@@ -8,6 +8,7 @@ package com.ejemplos.spring.controller;
 
 import java.net.URI;
 import java.util.List;
+import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -49,10 +50,9 @@ public class EventController {
 	
 	//Find event by ID
 	@GetMapping(value = "/{id}")
-	public Event readEvent(@PathVariable String id) {
+	public Optional<Event> readEvent(@PathVariable String id) {
 		System.out.println("-------- readEvent");
-		return service.findById(id)
-				   .orElseThrow(EventNotFoundException::new);
+		return service.findById(id);
 	}
 	
 	//Find events by genre

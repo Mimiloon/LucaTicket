@@ -26,7 +26,7 @@ import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
-import com.ejemplos.spring.exceptions.UserNotFoundException;
+import com.ejemplos.spring.error.UserNotFoundException;
 import com.ejemplos.spring.model.User;
 import com.ejemplos.spring.service.UserService;
 

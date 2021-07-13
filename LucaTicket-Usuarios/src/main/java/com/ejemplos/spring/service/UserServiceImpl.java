@@ -9,6 +9,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
+import com.ejemplos.spring.error.DNINotFoundException;
+import com.ejemplos.spring.error.ResourceIsEmpty;
 import com.ejemplos.spring.model.User;
 import com.ejemplos.spring.repository.UserRepository;
 
@@ -27,20 +29,28 @@ public class UserServiceImpl implements UserService {
 	public List<User> findAllUsers() {
 		LOG.info("ENTRANDO A findAllUsers()");
 
-		List<User> resultado = repo.findAll();
+		List<User> result = repo.findAll();
 
-		LOG.info("SALIENDO DE findAllUsers(): {}", resultado);
-		return resultado;
+		if (result.size() > 0) {
+			LOG.info("SALIENDO DE findAllUsers(): {}", result);
+			return result;
+		} else
+			throw new ResourceIsEmpty("List of Users is empty");
+
 	}
 
 	@Override
 	public Optional<User> findByDNI(String dni) {
 		LOG.info("ENTRANDO A findByDNI(): dni:{}", dni);
 
-		Optional<User> resultado = repo.findById(dni);
+		Optional<User> result = repo.findById(dni);
+		
+		if(result !=null) {
 
-		LOG.info("ENTRANDO A findByDNI(): {}", resultado);
-		return resultado;
+			LOG.info("ENTRANDO A findByDNI(): {}", result);
+			return result;
+			
+		}else throw new DNINotFoundException("That DNI doesn't exist");
 
 	}
 
@@ -79,7 +89,6 @@ public class UserServiceImpl implements UserService {
 
 	}
 
-	
 	@Override
 	public Optional<User> updateUser(String dni, User user) {
 		LOG.info("ENTRANDO A updateUser(): dni:{}, user:{}", dni, user);

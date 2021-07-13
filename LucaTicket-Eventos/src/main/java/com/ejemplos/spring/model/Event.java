@@ -14,6 +14,7 @@ import org.springframework.data.mongodb.core.mapping.Field;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
 
+import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
 
 /*
@@ -30,6 +31,7 @@ public class Event implements Serializable {
 	private static final long serialVersionUID = 2330258799651251994L;
 
 	@Id
+	@ApiModelProperty(required=false, hidden = true)
 	private String id;
 	@Field()
 	@NotEmpty

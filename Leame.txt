@@ -1,4 +1,18 @@
 =========
 VERSIÓN 1
 =========
-Creamos la clase usuario, la clase evento y la clase compras
+Se crea una estructura de Spring Boot sobre la que trabajar.
+Creamos la clase usuario y la clase evento.
+=========
+VERSIÓN 2
+=========
+Hacemos CRUD con el usuario y el evento. 
+Creamos bases de datos compartidas para almacenar los datos.
+SQL para usuarios y MongoDB para eventos.
+Se añade una parte de security para el login de los usuarios y
+roles de usuarios para diferentes niveles de acceso.
+Pruebas unitarias de los métodos.
+=========
+VERSIÓN 3
+=========
+Creamos la clase Compras
