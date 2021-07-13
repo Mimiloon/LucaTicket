@@ -58,5 +58,5 @@ public class LucaTicketTest02_ListingEvents {
             Event clave = it.next();
             assertEquals(clave.getLocationcity(),city);
 		}	
-	}
+	}	
 }

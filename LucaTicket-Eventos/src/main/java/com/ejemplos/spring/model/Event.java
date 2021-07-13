@@ -76,5 +76,14 @@ public class Event implements Serializable {
 	@NotEmpty
 	private String genre;
 	
+	//Constructor de prueba
+	public Event(String id, String name) {
+		this.id = id;
+		this.name = name;
+	}
+	
+	public Event() {
+		
+	}
 	
 }
