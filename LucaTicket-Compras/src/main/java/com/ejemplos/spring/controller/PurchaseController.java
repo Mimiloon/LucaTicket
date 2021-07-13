@@ -18,6 +18,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
+import com.ejemplos.spring.error.PurchaseNotFoundException;
 import com.ejemplos.spring.model.Purchase;
 import com.ejemplos.spring.service.PurchaseService;
 

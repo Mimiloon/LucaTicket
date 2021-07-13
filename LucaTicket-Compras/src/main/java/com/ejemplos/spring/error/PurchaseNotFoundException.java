@@ -1,9 +1,5 @@
-package com.ejemplos.spring.controller;
-/**
-* Class name: PurchaseNotFoundException.java
-* Date: 12/07/2021
-* @version: 2.0
-* @author: Ana M. Ramírez*/
+package com.ejemplos.spring.error;
+
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.ResponseStatus;
 
@@ -17,6 +13,5 @@ public class PurchaseNotFoundException extends RuntimeException {
 	}
 	public PurchaseNotFoundException(String id) {
 		super("Epic Fail: The event with ID: "+id+" doesn´t exist");
-	}	
-
+	}
 }
