@@ -17,12 +17,8 @@ import com.fasterxml.jackson.annotation.JsonFormat;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
 
-/*
-* Class name: Event.java
-* Description: Java Class which contains data related to the events from the database
-* Date: 07/07/2021
-* Version: 2.0
-* Author: Ana Díaz Muñoz**/
+/**
+* @author: Ana Díaz, Ana Ramírez, Rocío Jiménez, Sara Sevillano, Rebeca Martínez*/
 
 @Document(collection = "Events")
 @Data
@@ -37,7 +33,7 @@ public class Event implements Serializable {
 	@NotEmpty
 	private String name;
 	@Field()
-	@Size(min=1, max = 15)
+	@Size(min=1, max = 50)
 	private String shortDescription;
 	@Field()
 	@Size(min=8, max = 200)

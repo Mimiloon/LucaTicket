@@ -1,8 +1,5 @@
 package com.ejemplos.spring.service;
 /**
-* Class name: EventService.java
-* Date: 07/07/2021
-* @version: 2.0
 * @author: Ana Díaz Muñoz*/
 import java.util.List;
 import java.util.Optional;

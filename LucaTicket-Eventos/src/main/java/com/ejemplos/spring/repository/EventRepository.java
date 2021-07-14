@@ -1,9 +1,6 @@
 package com.ejemplos.spring.repository;
 /**
-* Class name: EventRepository.java
-* Date: 10/07/2021
-* @version: 2.0
-* @author: Ana Díaz Muñoz*/
+ * @author: Ana Díaz, Rebeca Martínez, Ana Ramírez, Rocío Jiménez, Sara Sevillano*/
 
 
 import java.util.List;
