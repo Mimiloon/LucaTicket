@@ -1,10 +1,10 @@
 package com.ejemplos.spring.error;
 
-public class UnauthorizedException extends RuntimeException {
+public class MinimumPriceException extends RuntimeException {
 
 	private static final long serialVersionUID = 1L;
 
-	public UnauthorizedException(String message) {
+	public MinimumPriceException(String message) {
         super(message);
     }
 }

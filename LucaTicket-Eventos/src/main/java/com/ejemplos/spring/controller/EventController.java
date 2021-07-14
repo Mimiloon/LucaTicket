@@ -10,6 +10,8 @@ import java.net.URI;
 import java.util.List;
 import java.util.Optional;
 
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -23,10 +25,12 @@ import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 import com.ejemplos.spring.model.Event;
 import com.ejemplos.spring.service.EventService;
+import com.ejemplos.spring.service.EventServiceImpl;
 
 @RestController
 @RequestMapping("/events")
 public class EventController {
+	private static final Logger LOG = LogManager.getLogger(EventServiceImpl.class);
 	
 	@Autowired
 	private EventService service;
@@ -89,6 +93,7 @@ public class EventController {
 		 * buildAndExpand(result.getId()) inserts the id of the newly created student
 		 * into the template. The result is the URI of the new resource.
 		 */
+		LOG.info("He pasado por aquí");
 		return ResponseEntity.created(location).build();
 	}
 	

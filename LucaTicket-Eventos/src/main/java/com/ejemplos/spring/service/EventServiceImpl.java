@@ -1,8 +1,8 @@
 package com.ejemplos.spring.service;
 
-import java.text.SimpleDateFormat;
-import java.time.format.DateTimeFormatter;
+
 import java.util.Date;
+import java.util.Iterator;
 /**
 * Class name: EventServiceImpl.java
 * Date: 10/07/2021
@@ -23,6 +23,8 @@ import com.ejemplos.spring.error.GenreNotFoundException;
 import com.ejemplos.spring.error.IDAlreadyExists;
 import com.ejemplos.spring.error.IDNotFoundException;
 import com.ejemplos.spring.error.MaximumSizeException;
+import com.ejemplos.spring.error.MinimumPriceException;
+import com.ejemplos.spring.error.MinimumSizeException;
 import com.ejemplos.spring.error.NameNotFoundException;
 import com.ejemplos.spring.model.Event;
 
@@ -65,44 +67,92 @@ public class EventServiceImpl implements EventService {
 
 	}
 
+//	@Override
+//	public Event save(Event event) {
+//		LOG.info("EVENT---->INTO save()");
+//		StringBuffer s = new StringBuffer();
+//		s.append("ok");
+//		if (event.getId().isEmpty()) {
+//			// Si no está registrado comprueba que no tenga valores nulos
+//			if (this.notNullAttributes(event).equals(s)) {
+//				// Si no tiene valores nulos, comprueba que la fecha del evento es posterior a
+//				// la actual
+//				if (this.EventDateIsAfterActualDate(event)) {
+//					// Si la fecha es posterior a la actual comprueba que las descrpciones tienen el
+//					// tamaño adecuado
+//					if (this.maximumSize(event) == "ok") {
+//						if (this.minimumSize(event) == "ok") {
+//							return repository.save(event);
+//						} else {
+//							LOG.info("Throwing exception...");
+//							throw new MaximumSizeException(this.maximumSize(event));
+//						}
+//					} else {
+//						LOG.info("Throwing exception...");
+//						throw new MaximumSizeException(this.maximumSize(event));
+//					}
+//
+//				} else {
+//					LOG.info("Throwing exception...");
+//					throw new CustomException("La fecha del evento debe ser posterior a la actual");
+//				}
+//			} else {
+//				LOG.info("Throwing exception...");
+//				throw new CustomException(this.notNullAttributes(event).toString());
+//			}
+//		} else {
+//			LOG.info("Throwing exception...");
+//			throw new IDAlreadyExists("El id ya existe");
+//		}
+//	}
+	
+	//------------------------------------------------------------------------------
+	
 	@Override
 	public Event save(Event event) {
 		LOG.info("EVENT---->INTO save()");
 		StringBuffer s = new StringBuffer();
 		s.append("ok");
-		if (event.getId().isEmpty()) {
-			// Si no está registrado comprueba que no tenga valores nulos
-			if (this.notNullAttributes(event).equals(s)) {
-				// Si no tiene valores nulos, comprueba que la fecha del evento es posterior a
-				// la actual
-				if (this.EventDateIsAfterActualDate(event)) {
-					// Si la fecha es posterior a la actual comprueba que las descrpciones tienen el
-					// tamaño adecuado
-					if (this.maximumSize(event) == "ok") {
-						if (this.minimumSize(event) == "ok") {
+		List<Event> lst = repository.findAll();
+		Iterator<Event> it = lst.iterator();
+		while (it.hasNext()) {
+			Event clave = it.next();
+			if (clave.getId().equals(event.getId())) {
+				LOG.info("Throwing exception...");
+				throw new IDAlreadyExists("El id ya existe");
+			}
+		}
+		if ((this.notNullAttributes(event).toString()).equals((s).toString())) {
+			if (this.EventDateIsAfterActualDate(event)) {
+				if ((this.maximumSize(event).toString()).equals((s).toString())) {
+					if ((this.minimumSize(event).toString()).equals((s).toString())) {
+						if((this.minimumPrice(event).toString()).equals((s).toString())) {
 							return repository.save(event);
 						} else {
 							LOG.info("Throwing exception...");
-							throw new MaximumSizeException(this.maximumSize(event));
+							throw new MinimumPriceException(this.minimumPrice(event).toString());
 						}
 					} else {
 						LOG.info("Throwing exception...");
-						throw new MaximumSizeException(this.maximumSize(event));
+						LOG.info("Ha entrado en la excepción minimum");
+						throw new MinimumSizeException(this.minimumSize(event).toString());
 					}
-
 				} else {
 					LOG.info("Throwing exception...");
-					throw new CustomException("La fecha del evento debe ser posterior a la actual");
+					LOG.info("Ha entrado en la excepción maximum");
+					throw new MaximumSizeException(this.maximumSize(event).toString());
 				}
 			} else {
 				LOG.info("Throwing exception...");
-				throw new CustomException(this.notNullAttributes(event).toString());
+				LOG.info("Ha entrado en la excepción date");
+				throw new CustomException("La fecha del evento debe ser posterior a la actual");
 			}
 		} else {
 			LOG.info("Throwing exception...");
-			throw new IDAlreadyExists("El id ya existe");
+			LOG.info("Ha entrado en la excepción not null");
+			throw new CustomException(this.notNullAttributes(event).toString());
 		}
-	}
+	}         	
 
 	@Override
 	public void deleteById(String id) {
@@ -168,18 +218,19 @@ public class EventServiceImpl implements EventService {
 		if (e1.getName() == null) {
 			sbf.append("name, ");
 			c++;
-		} else if (e1.getDate() == null) {
+		} if (e1.getDate() == null) {
 			sbf.append("date, ");
-		} else if (e1.getHour() == null) {
+			c++;
+		} if (e1.getHour() == null) {
 			sbf.append("hour, ");
 			c++;
-		} else if (e1.getLocationaddress() == null) {
+		} if (e1.getLocationaddress() == null) {
 			sbf.append("location address,");
 			c++;
-		} else if (e1.getLocationcity() == null) {
+		} if (e1.getLocationcity() == null) {
 			sbf.append("location city, ");
 			c++;
-		} else if (e1.getLocationname() == null)
+		} if (e1.getLocationname() == null)
 			sbf.append("location name,");
 
 		if (c != 0) {
@@ -187,6 +238,7 @@ public class EventServiceImpl implements EventService {
 		} else {
 			sbf2.append("ok");
 			return sbf2;
+			
 		}
 
 	}
@@ -200,36 +252,82 @@ public class EventServiceImpl implements EventService {
 
 	}
 
-	public String minimumSize(Event e1) {
+	public StringBuffer minimumSize(Event e1) {
+		StringBuffer sbf = new StringBuffer();
+		sbf.append("ok");
+		StringBuffer sbf2 = new StringBuffer();
+		sbf2.append("Error: ");
+		int c = 0;
 		int minS = 1;
 		int minL = 8;
-
 		int l1 = e1.getShortDescription().length();
 		int l2 = e1.getLongDescription().length();
 		if (l1 < minS) {
-			return "Short description too short";
-		} else if (l2 < minL) {
-			return "Long Description too short";
-		} else if ((l1 < minS) && (l2 < minL)) {
-			return "Both description are too short";
+			sbf2.append("Short description too short");
+			c++;
+		} if (l2 < minL) {
+			sbf2.append("Long Description too short");
+			c++;
+		} if ((l1 < minS) && (l2 < minL)) {
+			sbf2.append("Both description are too short");
+			c++;
+		}	
+		if (c != 0) {
+			return sbf2;
+		} else {
+			return sbf;
+			
 		}
-		return "ok";
+	}
+	
+	public StringBuffer minimumPrice(Event e1) {
+		StringBuffer sbf = new StringBuffer();
+		sbf.append("ok");
+		StringBuffer sbf2 = new StringBuffer();
+		sbf2.append("Error: ");
+		int c = 0;
+		int minP = 0;
+		if (e1.getMinimumprice() < minP) {
+			sbf2.append("Minimum price too low");
+			c++;
+		} if (e1.getMaximumprice()< minP) {
+			sbf2.append("Maximum price too low");
+			c++;
+		}	
+		
+		if (c != 0) {
+			return sbf2;
+		} else {
+			return sbf;	
+		}
 	}
 
-	public String maximumSize(Event e1) {
-		int maxS = 15;
-		int maxL = 30;
-
+	public StringBuffer maximumSize(Event e1) {
+		StringBuffer sbf = new StringBuffer();
+		sbf.append("ok");
+		StringBuffer sbf2 = new StringBuffer();
+		sbf2.append("Error: ");
+		int c = 0;
+		int maxS = 8;
+		int maxL = 2000;
 		int l1 = e1.getShortDescription().length();
 		int l2 = e1.getLongDescription().length();
 		if (l1 > maxS) {
-			return "Short description too long";
-		} else if (l2 > maxL) {
-			return "Long Description too long";
-		} else if ((l1 > maxS) && (l2 > maxL)) {
-			return "Both description are too long";
+			sbf2.append("Short description too long");
+			c++;
+		} if (l2 > maxL) {
+			sbf2.append("Long Description too long");
+			c++;
+		} if ((l1 > maxS) && (l2 > maxL)) {
+			sbf2.append("Both description are too long");
+			c++;
 		}
-		return "ok";
+		
+		if (c != 0) {
+			return sbf2;
+		} else {
+			return sbf;
+		}
 	}
 
 }

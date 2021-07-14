@@ -40,7 +40,7 @@ public class Event implements Serializable {
 	@Size(min=1, max = 15)
 	private String shortDescription;
 	@Field()
-	@Size(min=8, max = 30)
+	@Size(min=8, max = 200)
 	private String longDescription;
 	@Field()
 	private String image;
@@ -78,5 +78,14 @@ public class Event implements Serializable {
 	@NotEmpty
 	private String genre;
 	
+	//Constructor de prueba
+	public Event(String id, String name) {
+		this.id = id;
+		this.name = name;
+	}
+	
+	public Event() {
+		
+	}
 	
 }
