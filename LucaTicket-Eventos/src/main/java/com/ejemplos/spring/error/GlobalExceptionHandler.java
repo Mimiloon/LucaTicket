@@ -53,6 +53,16 @@ public class GlobalExceptionHandler {
 		return new ResponseEntity<ErrorMessage>(response, HttpStatus.CONFLICT);
 	}
 	
+	@ExceptionHandler(MinimumPriceException.class)
+	public ResponseEntity<ErrorMessage> minimumPriceException(MinimumPriceException ex) {
+		ErrorMessage response = new ErrorMessage();
+		response.setErrorCode("CONFLICT");
+		response.setErrorMessage(ex.getMessage());
+		response.setTimestamp(LocalDateTime.now());
+
+		return new ResponseEntity<ErrorMessage>(response, HttpStatus.CONFLICT);
+	}
+	
 	@ExceptionHandler(ResourceIsNullException.class)
 	public ResponseEntity<ErrorMessage> resourceIsNullException(ResourceIsNullException ex) {
 		ErrorMessage response = new ErrorMessage();
