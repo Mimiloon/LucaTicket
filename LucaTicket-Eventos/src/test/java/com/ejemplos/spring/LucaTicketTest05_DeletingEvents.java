@@ -1,5 +1,6 @@
 package com.ejemplos.spring;
-
+/**
+ * @author: Ana Díaz, Rebeca Martínez, Ana Ramírez, Rocío Jiménez, Sara Sevillano*/
 import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
 

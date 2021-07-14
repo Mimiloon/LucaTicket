@@ -1,10 +1,6 @@
 package com.ejemplos.spring.controller;
 /**
-* Class name: EventController.java
-* Description: Java Class which contains the methods and the endpoints
-* Date: 10/07/2021
-* @version: 1.0
-* @author: Ana Díaz Muñoz*/
+* @author: Ana Díaz, Sara Sevillano, Rocío Jiménez, Ana Ramírez, Rebeca Martínez */
 
 import java.net.URI;
 import java.util.List;
@@ -38,6 +34,7 @@ public class EventController {
 
 	@GetMapping(value = "/all")
 	public List<Event> readEvents() {
+		LOG.info("----------findEvents");
 		return service.findAll();
 	}
 	
@@ -55,34 +52,35 @@ public class EventController {
 	//Find event by ID
 	@GetMapping(value = "/{id}")
 	public Optional<Event> readEvent(@PathVariable String id) {
-		System.out.println("-------- readEvent");
+		LOG.info("-------- readEvent");
 		return service.findById(id);
 	}
 	
 	//Find events by genre
 	@GetMapping(value = "/genre/{genre}")
 	public List<Event> readEventByGenre(@PathVariable String genre) {
-		System.out.println("-------- readEvent by genre");
+		LOG.info("-------- readEvent by genre");
 		return service.findByGenre(genre);
 	}
 	
 	//Find events by city
 	@GetMapping(value = "/city/{city}")
 	public List<Event> readEventByCity(@PathVariable String city) {
-		System.out.println("-------- readEvent by city");
+		LOG.info("-------- readEvent by city");
 		return service.findByCity(city);
 	}
 	
 	// Find events by name
 	@GetMapping(value = "/name/{name}")
 	public List<Event> readEventByName(@PathVariable String name) {
-		System.out.println("-------- readEvent by name");
+		LOG.info("-------- readEvent by name");
 		return service.findByName(name);
 	}
 
 	//Add event
 	@PostMapping(value = "/add")
 	public ResponseEntity<?> addEvent(@RequestBody Event event) {
+		LOG.info("--------- addEvent");
 		Event result = this.service.save(event);
 		URI location = ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}").buildAndExpand(result.getId())
 				.toUri();
@@ -93,13 +91,13 @@ public class EventController {
 		 * buildAndExpand(result.getId()) inserts the id of the newly created student
 		 * into the template. The result is the URI of the new resource.
 		 */
-		LOG.info("He pasado por aquí");
 		return ResponseEntity.created(location).build();
 	}
 	
 	// Update event
 	@PostMapping(value = "/update")
 	public ResponseEntity<?> updateEvent(@RequestBody Event event) {
+		LOG.info("--------- updateEvent");
 		Event result = this.service.save(event);
 		URI location = ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}").buildAndExpand(result.getId())
 				.toUri();
@@ -116,6 +114,7 @@ public class EventController {
 	//Delete event by ID
 	@DeleteMapping(value = "/{id}")
 	public void deleteEvent(@PathVariable String id) {
+		LOG.info("--------- deleteEvent by ID");
 		service.deleteById(id);
 	}
 	

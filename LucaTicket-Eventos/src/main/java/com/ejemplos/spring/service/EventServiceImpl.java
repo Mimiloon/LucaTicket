@@ -4,10 +4,8 @@ package com.ejemplos.spring.service;
 import java.util.Date;
 import java.util.Iterator;
 /**
-* Class name: EventServiceImpl.java
-* Date: 10/07/2021
-* @version: 2.0
-* @author: Ana Díaz Muñoz*/
+ * 
+* @author: Ana Díaz Muñoz, Rocío Jiménez, Rebeca Martínez, Sara Sevillano, Ana Ramírez*/
 import java.util.List;
 import java.util.Optional;
 
@@ -66,47 +64,6 @@ public class EventServiceImpl implements EventService {
 		}
 
 	}
-
-//	@Override
-//	public Event save(Event event) {
-//		LOG.info("EVENT---->INTO save()");
-//		StringBuffer s = new StringBuffer();
-//		s.append("ok");
-//		if (event.getId().isEmpty()) {
-//			// Si no está registrado comprueba que no tenga valores nulos
-//			if (this.notNullAttributes(event).equals(s)) {
-//				// Si no tiene valores nulos, comprueba que la fecha del evento es posterior a
-//				// la actual
-//				if (this.EventDateIsAfterActualDate(event)) {
-//					// Si la fecha es posterior a la actual comprueba que las descrpciones tienen el
-//					// tamaño adecuado
-//					if (this.maximumSize(event) == "ok") {
-//						if (this.minimumSize(event) == "ok") {
-//							return repository.save(event);
-//						} else {
-//							LOG.info("Throwing exception...");
-//							throw new MaximumSizeException(this.maximumSize(event));
-//						}
-//					} else {
-//						LOG.info("Throwing exception...");
-//						throw new MaximumSizeException(this.maximumSize(event));
-//					}
-//
-//				} else {
-//					LOG.info("Throwing exception...");
-//					throw new CustomException("La fecha del evento debe ser posterior a la actual");
-//				}
-//			} else {
-//				LOG.info("Throwing exception...");
-//				throw new CustomException(this.notNullAttributes(event).toString());
-//			}
-//		} else {
-//			LOG.info("Throwing exception...");
-//			throw new IDAlreadyExists("El id ya existe");
-//		}
-//	}
-	
-	//------------------------------------------------------------------------------
 	
 	@Override
 	public Event save(Event event) {
@@ -119,7 +76,7 @@ public class EventServiceImpl implements EventService {
 			Event clave = it.next();
 			if (clave.getId().equals(event.getId())) {
 				LOG.info("Throwing exception...");
-				throw new IDAlreadyExists("El id ya existe");
+				throw new IDAlreadyExists("ID already exists.");
 			}
 		}
 		if ((this.notNullAttributes(event).toString()).equals((s).toString())) {
@@ -134,22 +91,18 @@ public class EventServiceImpl implements EventService {
 						}
 					} else {
 						LOG.info("Throwing exception...");
-						LOG.info("Ha entrado en la excepción minimum");
 						throw new MinimumSizeException(this.minimumSize(event).toString());
 					}
 				} else {
 					LOG.info("Throwing exception...");
-					LOG.info("Ha entrado en la excepción maximum");
 					throw new MaximumSizeException(this.maximumSize(event).toString());
 				}
 			} else {
 				LOG.info("Throwing exception...");
-				LOG.info("Ha entrado en la excepción date");
-				throw new CustomException("La fecha del evento debe ser posterior a la actual");
+				throw new CustomException("Event date has to be after actual date.");
 			}
 		} else {
 			LOG.info("Throwing exception...");
-			LOG.info("Ha entrado en la excepción not null");
 			throw new CustomException(this.notNullAttributes(event).toString());
 		}
 	}         	
@@ -160,7 +113,7 @@ public class EventServiceImpl implements EventService {
 		Optional<Event> result = repository.findById(id);
 		if (result.isEmpty()) {
 			LOG.info("Throwing exception...");
-			throw new IDNotFoundException("No se ha encontrado el id introducido");
+			throw new IDNotFoundException("ID not found");
 
 		} else {
 			LOG.info("OUT deleteById(): {}");
@@ -178,7 +131,7 @@ public class EventServiceImpl implements EventService {
 			return repository.findByGenre(genre);
 		} else {
 			LOG.info("Throwing exception...");
-			throw new GenreNotFoundException("No hay eventos de ese género");
+			throw new GenreNotFoundException("There aren't events with this genre.");
 		}
 
 	}
@@ -192,7 +145,7 @@ public class EventServiceImpl implements EventService {
 			return repository.findByLocationcity(city);
 		} else {
 			LOG.info("Throwing exception...");
-			throw new CityNotFoundException("No hay eventos en esa ciudad");
+			throw new CityNotFoundException("There aren't events in that city.");
 		}
 
 	}
@@ -206,7 +159,7 @@ public class EventServiceImpl implements EventService {
 			return repository.findByName(name);
 		} else {
 			LOG.info("Throwing exception...");
-			throw new NameNotFoundException("No hay eventos en esa ciudad");
+			throw new NameNotFoundException("Event with name " + name + " is not found");
 		}
 	}
 
@@ -308,7 +261,7 @@ public class EventServiceImpl implements EventService {
 		StringBuffer sbf2 = new StringBuffer();
 		sbf2.append("Error: ");
 		int c = 0;
-		int maxS = 8;
+		int maxS = 50;
 		int maxL = 2000;
 		int l1 = e1.getShortDescription().length();
 		int l2 = e1.getLongDescription().length();

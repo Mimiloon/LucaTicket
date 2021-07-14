@@ -55,7 +55,16 @@ public class Purchase implements Serializable {
 	@Field
 	private boolean isPaid;
 	
-	
+	public Purchase(@NotEmpty String dni, @NotEmpty String eventId, @NotEmpty @Size(min = 1) Integer amount,
+			@NotEmpty Double price, @NotEmpty String type, boolean isPaid) {
+			super();
+			this.dni = dni;
+			this.eventId = eventId;
+			this.amount = amount;
+			this.price = price;
+			this.type = type;
+			this.isPaid = isPaid;
+			}	
 	
 	
 }

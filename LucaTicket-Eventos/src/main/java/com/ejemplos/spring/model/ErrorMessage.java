@@ -1,5 +1,6 @@
 package com.ejemplos.spring.model;
-
+/**
+ * @author: Ana Díaz, Rebeca Martínez, Ana Ramírez, Rocío Jiménez, Sara Sevillano*/
 import java.io.Serializable;
 import java.time.LocalDateTime;
 

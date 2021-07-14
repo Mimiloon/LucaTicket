@@ -1,5 +1,7 @@
 package com.ejemplos.spring.error;
-
+/**
+ * @author Ana Díaz, Rebeca Martínez, Ana Ramírez, Sara Sevillano, Rocío Jiménez
+ * */
 import java.time.LocalDateTime;
 
 import org.springframework.http.HttpStatus;
